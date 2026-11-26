@@ -13,3 +13,5 @@ body:not(.locked) .login-gate { display:none; }
 .login-panel button { width:100%; margin:10px 0 18px; }
 .login-panel small { color:#67748a; }
 .login-error { min-height:1.1em; color:#b42318!important; font-size:.9rem; margin:4px 0!important; }
+
+textarea{width:100%;box-sizing:border-box;font:inherit;padding:12px;border:1px solid #cbd5df;border-radius:12px;background:white;color:inherit;resize:vertical}.recipe-memo{white-space:pre-wrap;overflow-wrap:anywhere}.item .row{flex-wrap:wrap}
