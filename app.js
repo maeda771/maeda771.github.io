@@ -51,7 +51,7 @@ function availableSavings(records,budget,month){return pastSavings(records,budge
 function renderLuxury(){const list=db.records.filter(r=>r.fund==='savings').sort((a,b)=>b.date.localeCompare(a.date));$('#luxuryHistory').innerHTML=list.length?'<small>贅沢の履歴</small>'+list.map(r=>`<div class="item"><div class="info"><b>${esc(r.name)} ${money(r.cost)}</b><small>${esc(r.date)}</small></div><button data-lux-edit="${esc(r.id)}">編集</button><button class="danger" data-lux-delete="${esc(r.id)}">取り消す</button></div>`).join(''):'';fundHint()}
 function fundHint(){const old=db.records.find(r=>r.id===editingRecord);const balance=availableSavings(db.records,Number(db.budget),dateNow().slice(0,7))+(old?.fund==='savings'?Number(old.cost):0);$('#fundHint').textContent=$('#fundSource').value==='savings'?'使える節約貯金：'+money(Math.max(0,balance))+'（普段の予算には加算しません）':''}
 function render(){renderStocks();renderRecipes();renderRecipeSelect();refreshRows();renderRecords();renderHome();renderMonthlyStats();preview();$('#dailyBudget').value=db.budget}
-const petMotions={idle:[1,6,240],blink:[4,6,120],eat:['eat',6,260],run:[6,8,95],scratch:[0,6,170],rub:[0,6,220],happy:[10,5,150],ball:['ball',6,230],curious:[8,8,220],butterfly:[11,8,240]};
+const petMotions={idle:[1,6,240],blink:[4,6,120],eat:['eat',6,260],run:[6,8,95],scratch:[0,6,170],rub:[0,6,220],happy:[10,5,150],ball:['ball',6,400],curious:[8,8,220],butterfly:[11,8,240]};
 let petFrameTimer,petCurrent='idle'; const petImages={};
 const petChoices=['blink','run','scratch','rub','happy','ball','butterfly','curious'];
 for(const [sheet,count] of Object.values(petMotions)){for(let i=0;i<count;i++){const url=`assets/motions/${sheet}-${i}.png?v=5.2`;const img=new Image();img.src=url;petImages[url]=img;}}
@@ -65,7 +65,7 @@ function animate(type='happy'){
  let frame=0;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  function draw(){const url=`assets/motions/${sheet}-${sequence[frame]}.png?v=5.2`;if(petImages[url]?.complete&&petImages[url].naturalWidth)img.src=url;frame=(frame+1)%sequence.length;}
  draw();if(!reduced)petFrameTimer=setInterval(draw,delay);
- const duration={eat:2860,run:4400,walk:3200,ball:2070,curious:1760,butterfly:3840,rub:2600,scratch:1800,happy:1800,blink:850};
+ const duration={eat:2860,run:4400,walk:3200,ball:3600,curious:1760,butterfly:3840,rub:2600,scratch:1800,happy:1800,blink:850};
  if(type!=='idle')petTimer=setTimeout(()=>animate('idle'),duration[type]||1800);
 }
 window.addEventListener('load',()=>animate('idle'),{once:true});
